@@ -1,0 +1,22 @@
+# Locket Filter AI by Thanh Lê
+# Locket Gold + Video 45s + Photobooth + AI Filter + Unlock Unblur VIP
+# Quantumult X Snippet
+
+[rewrite_local]
+# 1. Anti-Cache + RevenueCat
+^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) url script-request-header https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/deleteHeader_RC.js
+^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) url script-response-body https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/revenuecat.js
+
+# 2. Remote Config (45s Video + Toàn bộ Filter Photobooth & Khung + Caption tùy chỉnh)
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ url script-request-header https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/deleteHeader_Firebase.js
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ url script-response-body https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/locketfix.js
+
+# 3. Photobooth + AI Filter Request
+^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage url script-request-body https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/locket_pb_req.js
+
+# 4. Profile Mock + Filter & Moment Unblur Response
+^https?:\/\/api\.locketcamera\.com\/changeProfileInfo url script-request-body https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/locket_change_profile.js
+^https?:\/\/api\.locketcamera\.com\/.+ url script-response-body https://raw.githubusercontent.com/thanhlh05/Locket-Gold-Thanhle-FilterAI/refs/heads/main/scripts/locket_filter_resp.js
+
+[mitm]
+hostname = api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, *.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, locket-vip.mhiep20077.workers.dev, locket-mod-backend.onrender.com
